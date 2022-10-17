@@ -1,5 +1,6 @@
 package org.IsValidSentence;
 
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -15,11 +16,22 @@ public class IsSentenceValid {
      * Numbers below 13 are spelled out (”one”, “two”, "three”, etc…).
      */
     public static boolean checkIfSentenceIsValid(String sentence) {
-        //Regex Filters Capital First Letter and [.!?] symbols at the end
-        Pattern capitalAndSymbolPattern = Pattern.compile("^[A-Z].*[.!?]$");
-        Matcher capitalAndSymbolMatcher = capitalAndSymbolPattern.matcher(sentence);
-
         //Using Guard clauses below to filter out the sentence. By the end the result should be true.
+
+        //Ensure the string starts with a letter
+        if (!Character.isLetter(sentence.charAt(0))){
+            return false;
+        }
+
+        //Ensure that the first char letter is a capital
+        if (!Character.isUpperCase(sentence.charAt(0))){
+            return false;
+        }
+
+        //Ensure that if the last char in the string is not within a list of symbols return false
+        if (Arrays.stream(new String[]{"!", ".", "?"}).noneMatch(sentence.substring(sentence.length() - 1)::contains)){
+            return false;
+        }
 
         //Ensure that the string cannot contain a dot symbol before the end
         if (sentence.substring(0, sentence.length() - 1).contains(".")) {
@@ -28,11 +40,6 @@ public class IsSentenceValid {
 
         //Ensure that the string cannot contain numbers between 0 and <13
         if (!isNumericInString(sentence)) {
-            return false;
-        }
-
-        //Ensure that the string must have a capital letter at the start and a symbol at the end
-        if (!capitalAndSymbolMatcher.find()) {
             return false;
         }
 
