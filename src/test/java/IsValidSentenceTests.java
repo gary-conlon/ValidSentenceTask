@@ -12,7 +12,7 @@ public class IsValidSentenceTests {
                 "\"The quick brown fox said “hello Mr lazy dog.\"",
                 "One lazy dog is too few, 12 is too many.",
                 "Are there 11, 12, or 13 lazy dogs?",
-                "There is no punctuation in this sentence"};
+                "There is no punctuation in this sentence", "!The big dog!"};
 
         for (String sentence : invalidSentences){
             Assert.assertFalse(IsSentenceValid.checkIfSentenceIsValid(sentence));
